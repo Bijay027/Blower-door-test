@@ -14,9 +14,9 @@ def main():
     # Input parameters
     floor_area = st.number_input("House floor area (sqft)", min_value=0.0, format="%f")
     ceiling_height = st.number_input("Ceiling height (ft)", min_value=0.0, format="%f")
-    ach_low = st.number_input("House ACH (low) [per hour]", min_value=0.0, format="%f")
-    ach_medium = st.number_input("House ACH (medium) [per hour]", min_value=0.0, format="%f")
-    ach_high = st.number_input("House ACH (high) [per hour]", min_value=0.0, format="%f")
+    ach_low = st.number_input("House ACH (low) [per hour]", min_value=0.25, format="%f")
+    ach_medium = st.number_input("House ACH (medium) [per hour]", min_value=0.30, format="%f")
+    ach_high = st.number_input("House ACH (high) [per hour]", min_value=0.50, format="%f")
     outdoor_ch4 = st.number_input("Outdoor CH₄ (ppm)", min_value=0.0, format="%f")
     indoor_ch4 = st.number_input("Indoor CH₄ (ppm)", min_value=0.0, format="%f")
     target_ach = st.number_input("Target ACH [per hour]", min_value=0.0, format="%f")
@@ -50,9 +50,9 @@ def main():
     st.write(f"**Target CFM**: {target_cfm:.2f}")
 
     # Step 6: Calculate Delta CH₄ (I-O) for low, medium, and high
-    delta_ch4_io_low = (delta_ch4 * ach_low * 1000) / target_cfm if target_cfm != 0 else 0
-    delta_ch4_io_medium = (delta_ch4 * ach_medium * 1000) / target_cfm if target_cfm != 0 else 0
-    delta_ch4_io_high = (delta_ch4 * ach_high * 1000) / target_cfm if target_cfm != 0 else 0
+    delta_ch4_io_low = (delta_ch4 * house_cfm_low * 1000) / target_cfm if target_cfm != 0 else 0
+    delta_ch4_io_medium = (delta_ch4 * house_cfm_medium * 1000) / target_cfm if target_cfm != 0 else 0
+    delta_ch4_io_high = (delta_ch4 * house_cfm_high * 1000) / target_cfm if target_cfm != 0 else 0
 
     # Display results
     st.subheader("Results")
